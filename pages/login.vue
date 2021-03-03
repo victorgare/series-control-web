@@ -21,7 +21,7 @@
                     <div class="text-center text-muted mb-4">
                         <small>Sign in</small>
                     </div>
-                    <form role="form">
+                    <form role="form" @submit.prevent="userLogin">
                         <base-input
                             v-model="model.email"
                             form-classes="input-group-alternative mb-3"
@@ -39,7 +39,7 @@
                         >
                         </base-input>
                         <div class="text-center">
-                            <base-button type="primary" class="my-4">Sign in</base-button>
+                            <base-button nativeType="submit" type="primary" class="my-4">Sign in</base-button>
                         </div>
                     </form>
                 </div>
@@ -66,6 +66,17 @@ export default {
                 password: '',
             },
         }
+    },
+    methods: {
+        async userLogin() {
+            try {
+                await this.$auth.loginWith('local', {
+                    data: this.model,
+                })
+            } catch (err) {
+                this.$swal('Erro', 'Problemas ao logar', 'error')
+            }
+        },
     },
 }
 </script>

@@ -1,3 +1,7 @@
+import dotenv from 'dotenv'
+dotenv.config()
+const BaseRoute = process.env.BASE_ROUTE
+
 export default {
     // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
     ssr: false,
@@ -44,6 +48,7 @@ export default {
 
     // Modules: https://go.nuxtjs.dev/config-modules
     modules: [
+        '@nuxtjs/auth',
         // https://go.nuxtjs.dev/bootstrap
         'bootstrap-vue/nuxt',
         // https://go.nuxtjs.dev/axios
@@ -53,7 +58,12 @@ export default {
     ],
 
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
-    axios: {},
+    axios: {
+        https: false,
+        baseURL: BaseRoute,
+        browserBaseURL: BaseRoute,
+        progress: true,
+    },
 
     // PWA module configuration: https://go.nuxtjs.dev/pwa
     pwa: {
@@ -64,4 +74,36 @@ export default {
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {},
+    router: {
+        middleware: ['auth'],
+    },
+    auth: {
+        redirect: {
+            login: '/login',
+            logout: '/',
+            callback: '/login',
+            home: '/',
+        },
+        strategies: {
+            local: {
+                endpoints: {
+                    login: {
+                        url: '/user/login',
+                        method: 'post',
+                        propertyName: 'token',
+                    },
+                    // logout: { url: BaseRoute + '/auth/logout', method: 'post' },
+                    user: {
+                        url: '/user',
+                        method: 'get',
+                        propertyName: 'data',
+                    },
+                },
+                // tokenRequired: true,
+                // tokenType: 'bearer',
+                // globalToken: true,
+                // autoFetchUser: true
+            },
+        },
+    },
 }

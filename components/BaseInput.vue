@@ -27,7 +27,7 @@
         </div>
         <slot>
             <input
-                :value="value"
+                v-model="internValue"
                 v-bind="$attrs"
                 class="form-control"
                 :class="[{ 'is-valid': valid === true }, { 'is-invalid': valid === false }, inputClasses]"
@@ -99,6 +99,7 @@ export default {
     data() {
         return {
             focused: false,
+            internValue: this.value,
         }
     },
     computed: {
@@ -118,6 +119,20 @@ export default {
                 this.addonRightIcon !== undefined ||
                 this.addonLeftIcon !== undefined
             )
+        },
+    },
+    watch: {
+        internValue: {
+            handler() {
+                this.$emit('input', this.internValue)
+            },
+            deep: true,
+        },
+        value: {
+            handler() {
+                this.internValue = this.value
+            },
+            deep: true,
         },
     },
     methods: {
