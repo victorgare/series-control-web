@@ -1,7 +1,6 @@
-// import { reactive } from 'vue'
 import Vue from 'vue'
-import Sidebar from './SideBar.vue'
-import SidebarItem from './SidebarItem.vue'
+import Sidebar from '~/components/Sidebar/SideBar.vue'
+import SidebarItem from '~/components/Sidebar/SidebarItem.vue'
 
 const SidebarStore = Vue.observable({
     showSidebar: false,
@@ -26,16 +25,8 @@ const SidebarStore = Vue.observable({
     },
 })
 
-const SidebarPlugin = {
-    install(app, options) {
-        if (options && options.sidebarLinks) {
-            SidebarStore.sidebarLinks = options.sidebarLinks
-        }
-
-        app.config.globalProperties.$sidebar = SidebarStore
-        app.component('SideBar', Sidebar)
-        app.component('SidebarItem', SidebarItem)
-    },
+Vue.component('SideBar', Sidebar)
+Vue.component('SidebarItem', SidebarItem)
+export default ({ app }, inject) => {
+    inject('sidebar', SidebarStore)
 }
-
-export default SidebarPlugin

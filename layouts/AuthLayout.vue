@@ -17,7 +17,7 @@
         </div>
         <!-- Page content -->
         <div class="container mt--8 pb-5">
-            <router-view></router-view>
+            <Nuxt />
         </div>
         <footer class="py-5 fixed-bottom">
             <div class="container">
@@ -32,7 +32,7 @@
 </template>
 <script>
 export default {
-    name: 'auth-layout',
+    name: 'AuthLayout',
     data() {
         return {
             year: new Date().getFullYear(),
