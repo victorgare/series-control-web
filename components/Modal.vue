@@ -57,26 +57,32 @@ export default {
         },
         modalClasses: {
             type: [Object, String],
+            default: () => {},
             description: 'Modal dialog css classes',
         },
         modalContentClasses: {
             type: [Object, String],
+            default: () => {},
             description: 'Modal dialog content css classes',
         },
         gradient: {
             type: String,
+            default: () => {},
             description: 'Modal gradient type (danger, primary etc)',
         },
         headerClasses: {
             type: [Object, String],
+            default: () => {},
             description: 'Modal Header css classes',
         },
         bodyClasses: {
             type: [Object, String],
+            default: () => {},
             description: 'Modal Body css classes',
         },
         footerClasses: {
             type: [Object, String],
+            default: () => {},
             description: 'Modal Footer css classes',
         },
         animationDuration: {

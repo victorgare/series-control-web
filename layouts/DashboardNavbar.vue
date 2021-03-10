@@ -11,7 +11,7 @@
                 </base-input>
             </div>
         </form>
-        <ul class="navbar-nav align-items-center d-none d-md-flex">
+        <ul class="navbar-nav align-items-center d-none d-md-flex ml-lg-auto">
             <li class="nav-item dropdown">
                 <base-dropdown class="nav-link pr-0">
                     <template #title>
@@ -44,7 +44,7 @@
                         <span>Support</span>
                     </router-link>
                     <div class="dropdown-divider"></div>
-                    <router-link to="/profile" class="dropdown-item">
+                    <router-link to="/logout" class="dropdown-item">
                         <i class="ni ni-user-run"></i>
                         <span>Logout</span>
                     </router-link>

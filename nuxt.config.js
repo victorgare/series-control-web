@@ -25,6 +25,7 @@ export default {
         '~/assets/vendor/nucleo/css/nucleo.css',
         '~/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css',
         '~/assets/scss/argon.scss',
+        { src: '~/assets/custom.css', lang: 'css' },
     ],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -33,6 +34,7 @@ export default {
         '~/plugins/globalComponents.js',
         '~/plugins/globalDirectives.js',
         '~/plugins/sidebar.js',
+        '~/plugins/modalAlert.js',
     ],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
@@ -63,6 +65,7 @@ export default {
         baseURL: BaseRoute,
         browserBaseURL: BaseRoute,
         progress: true,
+        retry: { retries: 3 },
     },
 
     // PWA module configuration: https://go.nuxtjs.dev/pwa
@@ -73,7 +76,9 @@ export default {
     },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
-    build: {},
+    build: {
+        extractCSS: true,
+    },
     router: {
         middleware: ['auth'],
     },

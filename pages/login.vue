@@ -39,7 +39,7 @@
                         >
                         </base-input>
                         <div class="text-center">
-                            <base-button nativeType="submit" type="primary" class="my-4">Sign in</base-button>
+                            <base-button native-type="submit" type="primary" class="my-4">Sign in</base-button>
                         </div>
                     </form>
                 </div>
@@ -74,7 +74,11 @@ export default {
                     data: this.model,
                 })
             } catch (err) {
-                this.$swal('Erro', 'Problemas ao logar', 'error')
+                this.$modalAlert.showError({
+                    title: 'Erro',
+                    text: 'Problemas ao logar',
+                    okOnly: true,
+                })
             }
         },
     },

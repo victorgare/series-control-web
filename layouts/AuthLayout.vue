@@ -28,6 +28,7 @@
                 </div>
             </div>
         </footer>
+        <modal-alert />
     </div>
 </template>
 <script>

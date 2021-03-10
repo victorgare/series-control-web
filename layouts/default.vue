@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper" :class="{ 'nav-open': $sidebar.showSidebar }">
+    <div class="wrapper min-vh-100" :class="{ 'nav-open': $sidebar.showSidebar }">
         <side-bar :background-color="sidebarBackground" short-title="SC" title="Series Control">
             <template #links>
                 <sidebar-item
@@ -33,9 +33,9 @@
                 />
                 <sidebar-item
                     :link="{
-                        name: 'Tables',
+                        name: 'Catalogo',
                         icon: 'ni ni-bullet-list-67 text-red',
-                        path: '/tables',
+                        path: '/catalog',
                     }"
                 />
                 <sidebar-item
@@ -54,15 +54,20 @@
                 />
             </template>
         </side-bar>
-        <div class="main-content" :data="sidebarBackground">
+        <div class="main-content min-vh-100 bg-gradient-success" :data="sidebarBackground">
             <dashboard-navbar></dashboard-navbar>
 
-            <div @click="toggleSidebar">
-                <!-- your content here -->
-                <router-view></router-view>
-                <content-footer v-if="!$route.meta.hideFooter"></content-footer>
+            <div class="min-vh-100" @click="toggleSidebar">
+                <!-- pb-8 pt-md-8-->
+                <base-header type="gradient-success" class="pb-6 pt-5" />
+                <!-- mt--7 -->
+                <div class="container-fluid flex-fill footer-discount">
+                    <nuxt />
+                </div>
+                <content-footer v-if="!$route.meta.hideFooter" class="position-fixed"></content-footer>
             </div>
         </div>
+        <modal-alert />
     </div>
 </template>
 <script>
@@ -88,4 +93,14 @@ export default {
     },
 }
 </script>
-<style lang="scss"></style>
+<style scoped>
+.position-fixed {
+    bottom: 0;
+    right: 0;
+    left: 250px;
+}
+
+.footer-discount {
+    padding-bottom: 45px;
+}
+</style>

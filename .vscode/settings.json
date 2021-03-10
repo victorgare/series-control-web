@@ -1,0 +1,35 @@
+{
+    "editor.formatOnSave": false,
+    "[javascript]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "[vue]": {
+        "editor.defaultFormatter": "octref.vetur"
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "prettier.configPath": ".prettierrc.js",
+    "vetur.format.defaultFormatterOptions": {
+        "prettyhtml": {
+            "printWidth": 100,
+            "singleQuote": false
+        },
+        "js-beautify-html": {
+            "ident_size": 4,
+            "ident_char": " "
+        },
+    },
+    "vetur.format.defaultFormatter.js": "prettier-eslint",
+    "vetur.format.options.tabSize": 4,
+    "vetur.format.defaultFormatter.html": "prettier",
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/*.code-search": true,
+        "dist/**/*": true,
+        ".nuxt/**/*": true,
+        "static/icons/**/*": true
+    },
+}
