@@ -4,12 +4,12 @@
             <template #links>
                 <sidebar-item
                     :link="{
-                        name: 'Dashboard',
+                        name: 'Inicio',
                         icon: 'ni ni-tv-2 text-primary',
                         path: '/',
                     }"
                 />
-
+                <!-- 
                 <sidebar-item
                     :link="{
                         name: 'Icons',
@@ -51,7 +51,7 @@
                         icon: 'ni ni-circle-08 text-pink',
                         path: '/register',
                     }"
-                />
+                /> -->
             </template>
         </side-bar>
         <div class="main-content min-vh-100 bg-gradient-success" :data="sidebarBackground">

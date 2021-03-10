@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!-- style="max-width: 20rem" -->
         <b-card tag="article" class="mb-2">
             <b-card-title>
                 <b-skeleton-wrapper :loading="!anime.name">

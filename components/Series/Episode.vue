@@ -12,12 +12,8 @@
                     <small>Assistido</small>
                 </b-col>
                 <b-col md="auto">
-                    <base-button icon :type="getTypeBotaoAssistido" @click="handleWatched">
-                        <span class="btn-inner--icon">
-                            <i class="fa fa-eye" :class="{ 'fa-eye': !watched, 'fa-eye-slash': watched }"> </i>
-                        </span>
-                    </base-button>
-                    <base-button icon type="success">
+                    <WatchedButton :item="internItem" />
+                    <base-button icon type="success" @click="watch">
                         <span class="btn-inner--icon"><i class="ni ni-button-play"></i></span>
                     </base-button>
                 </b-col>
@@ -27,7 +23,9 @@
 </template>
 
 <script>
+import WatchedButton from '~/components/Series/WatchedButton'
 export default {
+    components: { WatchedButton },
     props: {
         item: {
             type: Object,
@@ -40,26 +38,14 @@ export default {
         }
     },
     computed: {
-        getTypeBotaoAssistido() {
-            return this.watched ? 'danger' : 'primary'
-        },
         watched() {
             return this.internItem.watched === true
         },
     },
+
     methods: {
-        async handleWatched() {
-            try {
-                const result = (await this.$axios.get(`/episode/handleWatched/${this.internItem.id}`)).data
-                if (result.sucesso === true) {
-                    this.internItem.watched = result.data
-                }
-            } catch (error) {
-                this.$modalAlert.showError({
-                    title: 'Erro',
-                    text: error,
-                })
-            }
+        watch() {
+            this.$router.push({ name: 'Anime-watch-id', params: { id: this.internItem.id } })
         },
     },
 }

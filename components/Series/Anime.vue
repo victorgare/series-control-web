@@ -36,14 +36,14 @@
                     <div> <b-skeleton type="button" size="md"></b-skeleton> </div>
                 </template>
                 <div class="row">
-                    <div class="col-6 mb-3">
+                    <div class="col-12 mb-3">
                         <base-button block type="info" @click="goToAnimeDetails">Detalhes</base-button>
                     </div>
-                    <div class="col-6 mb-3">
-                        <base-button block type="primary">Assistido</base-button>
-                    </div>
+                    <!-- <div class="col-6 mb-3"> -->
+                    <!-- <base-button block type="primary">Assistido</base-button> -->
+                    <!-- </div> -->
                     <div class="col-12">
-                        <base-button block type="success">Continuar Assistindo</base-button>
+                        <base-button block type="success" @click="goToEpisode">Continuar Assistindo</base-button>
                     </div>
                 </div>
             </b-skeleton-wrapper>
@@ -61,9 +61,33 @@ export default {
             },
         },
     },
+    data() {
+        return {
+            nextEpisode: '',
+        }
+    },
+    mounted() {
+        this.getNextEpisode()
+    },
     methods: {
         goToAnimeDetails() {
             this.$router.push({ name: 'Anime-id', params: { id: this.item.id } })
+        },
+
+        async getNextEpisode() {
+            try {
+                const result = (await this.$axios.get(`/anime/${this.item.id}/getUnwatchedEpisode`)).data
+
+                this.nextEpisode = result.data
+            } catch (error) {
+                this.$modalAlert.showError({
+                    title: 'Erro',
+                    text: error,
+                })
+            }
+        },
+        goToEpisode() {
+            this.$router.push({ name: 'Anime-watch-id', params: { id: this.nextEpisode } })
         },
     },
 }
