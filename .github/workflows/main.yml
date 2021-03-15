@@ -19,7 +19,8 @@ jobs:
           uses: SpicyPizza/create-envfile@v1
           with:
             envkey_BASE_ROUTE: http://seriescontrolapi-prod.sa-east-1.elasticbeanstalk.com/api/
-            directory: /dist
+            directory: dist
+
         - name: Deploy
           uses: reggionick/s3-deploy@v3
           with:
