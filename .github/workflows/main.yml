@@ -1,4 +1,4 @@
-name: Example workflow for S3 Deploy
+name: Build and Deploy
 on: [push]
 jobs:
   run:
@@ -6,7 +6,6 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      BASE_ROUTE: http://seriescontrolapi-prod.sa-east-1.elasticbeanstalk.com/api/
     steps:
         - uses: actions/checkout@v2
 
@@ -16,11 +15,11 @@ jobs:
         - name: Build
           run: npm run generate
 
-        # - name: Make envfile
-        #   uses: SpicyPizza/create-envfile@v1
-        #   with:
-            
-        #     directory: /dist
+        - name: Make envfile
+          uses: SpicyPizza/create-envfile@v1
+          with:
+            envkey_BASE_ROUTE: http://seriescontrolapi-prod.sa-east-1.elasticbeanstalk.com/api/
+            directory: /dist
         - name: Deploy
           uses: reggionick/s3-deploy@v3
           with:
