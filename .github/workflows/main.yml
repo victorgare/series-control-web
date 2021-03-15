@@ -29,11 +29,11 @@ jobs:
             envkey_BASE_ROUTE: "http://seriescontrolapi-prod.sa-east-1.elasticbeanstalk.com/api/"
             directory: ./dist
 
-        # - name: copy env file
-        #   uses: canastro/copy-file-action@master
-        #   with:
-        #     source: ".env"
-        #     target: "dist/.env"
+        - name: copy env file
+          uses: canastro/copy-file-action@master
+          with:
+            source: ".env"
+            target: "dist/.env"
 
         - name: Deploy
           uses: reggionick/s3-deploy@v3
