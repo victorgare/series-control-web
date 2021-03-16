@@ -24,10 +24,10 @@ jobs:
           run: npm run generate
 
         - name: Create env file
-        run: |
-          touch dist/.env
-          echo BASE_ROUTE="http://seriescontrolapi-prod.sa-east-1.elasticbeanstalk.com/api/" >> .env
-          cat .env
+          run: |
+            touch dist/.env
+            echo BASE_ROUTE="http://seriescontrolapi-prod.sa-east-1.elasticbeanstalk.com/api/" >> .env
+            cat .env
 
         # - name: Make envfile
         #   uses: SpicyPizza/create-envfile@v1
