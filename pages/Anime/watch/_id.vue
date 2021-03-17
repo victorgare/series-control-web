@@ -91,7 +91,9 @@ export default {
             return this.$route.params.id
         },
         mountUrlVideo() {
-            return `${process.env.BASE_ROUTE}episode/watch/${encodeURIComponent(this.episode.urlVideo)}`
+            return `${process.env.BASE_ROUTE}episode/watch/${encodeURIComponent(
+                this.episode.urlVideo,
+            )}?token=${this.$auth.getToken('local')}`
         },
     },
     async mounted() {
@@ -103,6 +105,7 @@ export default {
             type: 'video/mp4',
             src: this.mountUrlVideo,
         }
+
         this.player = videojs(this.$refs.videoPlayer, this.options, function onPlayerReady() {
             this.src(video)
         })
