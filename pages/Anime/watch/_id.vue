@@ -19,7 +19,6 @@
                                     <b-skeleton-img card-img="center" />
                                 </div>
                             </template>
-                            {{ mountUrlVideo }}
                             <video ref="videoPlayer" class="video-js vjs-fluid m-auto w-auto mx-auto"> </video>
                         </b-skeleton-wrapper>
                     </b-col>
@@ -61,7 +60,7 @@
 </template>
 
 <script>
-// import videojs from 'video.js'
+import videojs from 'video.js'
 import WatchedButton from '~/components/Series/WatchedButton'
 require('video.js/dist/video-js.css')
 
@@ -91,23 +90,21 @@ export default {
     async mounted() {
         await this.getEpisode()
 
-        // // this.options.sources.src = this.mountUrlVideo
+        const video = {
+            type: 'video/mp4',
+            src: this.mountUrlVideo,
+        }
 
-        // const video = {
-        //     type: 'video/mp4',
-        //     src: this.mountUrlVideo,
-        // }
+        this.player = videojs(this.$refs.videoPlayer, this.options, function onPlayerReady() {
+            this.src(video)
+        })
 
-        // this.player = videojs(this.$refs.videoPlayer, this.options, function onPlayerReady() {
-        //     this.src(video)
-        // })
+        this.player.on('ended', () => {
+            this.$refs.watchedButton.handleWatched()
+            this.goToEpisode(this.episode.nextEpisode)
+        })
 
-        // this.player.on('ended', () => {
-        //     this.$refs.watchedButton.handleWatched()
-        //     this.goToEpisode(this.episode.nextEpisode)
-        // })
-
-        // this.player.on('timeupdate', this.timeUpdated)
+        this.player.on('timeupdate', this.timeUpdated)
     },
     beforeDestroy() {
         if (this.player) {
