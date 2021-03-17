@@ -76,7 +76,7 @@ export default {
             } catch (err) {
                 this.$modalAlert.showError({
                     title: 'Erro',
-                    text: 'Problemas ao logar',
+                    text: `Problemas ao logar<br>${err.join('<br>')}`,
                     okOnly: true,
                 })
             }
