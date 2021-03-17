@@ -134,7 +134,7 @@ export default {
     props: {
         logo: {
             type: String,
-            default: '../img/brand/green.png',
+            default: require('~/assets/img/brand/green.png'),
             description: 'Sidebar app logo',
         },
         autoClose: {
