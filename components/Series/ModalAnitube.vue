@@ -58,6 +58,10 @@ export default {
                 this.$modalAlert.showSuccess({
                     title: 'Sucesso',
                     text: 'Cadastrado',
+                    onConfirm: () => {
+                        debugger
+                        this.$nuxt.refresh()
+                    },
                 })
             } catch (error) {
                 this.$modalAlert.showError({

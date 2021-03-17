@@ -1,6 +1,8 @@
 <template>
     <div>
-        <Anime v-for="(anime, index) in animes" :key="index" :item="anime" />
+        <b-card-group deck>
+            <Anime v-for="(anime, index) in animes" :key="index" :item="anime" />
+        </b-card-group>
     </div>
 </template>
 

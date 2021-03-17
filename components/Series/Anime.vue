@@ -1,10 +1,5 @@
 <template>
     <div>
-        <!-- title="Card Title"
-        :img-src="item.urlCapa" 
-        img-alt="Capa anime"
-            img-top-->
-
         <b-card tag="article" style="max-width: 20rem" class="mb-2">
             <b-card-title>
                 <b-skeleton-wrapper :loading="!item.name">
