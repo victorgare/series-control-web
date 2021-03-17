@@ -49,6 +49,30 @@
                         </b-skeleton-wrapper>
                     </b-col>
                 </b-row>
+                <b-row>
+                    <b-col>
+                        <div class="progress-wrapper">
+                            <!-- <div class="progress-primary">
+                                <div class="progress-label">
+                                    <span>Task completed</span>
+                                </div>
+                                <div class="progress-percentage">
+                                    <span>60%</span>
+                                </div>
+                            </div> -->
+                            <base-progress
+                                type="success"
+                                :label="progressLabel"
+                                show-label="true"
+                                height="10"
+                                :value="percentageWatched"
+                                size="lg"
+                            >
+                                <slot label> da </slot>
+                            </base-progress>
+                        </div>
+                    </b-col>
+                </b-row>
             </b-card-text>
         </b-card>
 
@@ -78,6 +102,21 @@ export default {
     computed: {
         getUrlId() {
             return this.$route.params.id
+        },
+        totalEpisodes() {
+            return this.episodes.length
+        },
+        progressLabel() {
+            return `${this.totalWatched}/${this.totalEpisodes}`
+        },
+        totalWatched() {
+            return this.episodes.filter((item) => {
+                return item.watched === true
+            }).length
+        },
+        percentageWatched() {
+            const porcentagem = (this.totalWatched * 100) / this.totalEpisodes
+            return porcentagem.toFixed(2)
         },
     },
     mounted() {
