@@ -70,10 +70,8 @@
 
 <script>
 import videojs from 'video.js'
-import dotenv from 'dotenv'
 import WatchedButton from '~/components/Series/WatchedButton'
 require('video.js/dist/video-js.css')
-dotenv.config()
 
 export default {
     components: { WatchedButton },
