@@ -112,4 +112,8 @@ export default {
             },
         },
     },
+
+    publicRuntimeConfig: {
+        BASE_ROUTE: BaseRoute,
+    },
 }

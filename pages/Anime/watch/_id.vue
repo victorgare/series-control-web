@@ -83,7 +83,7 @@ export default {
             return this.$route.params.id
         },
         mountUrlVideo() {
-            return `${process.env.BASE_ROUTE}episode/watch/${encodeURIComponent(
+            return `${this.$config.BASE_ROUTE}episode/watch/${encodeURIComponent(
                 this.episode.urlVideo,
             )}?token=${encodeURIComponent(this.$auth.getToken('local'))}`
         },
