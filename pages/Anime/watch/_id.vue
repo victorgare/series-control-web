@@ -28,22 +28,18 @@
                         <div> <b-skeleton type="button" size="md"></b-skeleton> </div>
                     </template>
                     <div class="row mt-3">
-                        <div class="col-3">
-                            <base-button
-                                v-if="episode.previousEpisode"
-                                block
-                                type="info"
-                                @click="goToEpisode(episode.previousEpisode)"
+                        <div v-if="episode.previousEpisode" class="col-6 col-md-3 mb-3">
+                            <base-button block type="info" @click="goToEpisode(episode.previousEpisode)"
                                 >Anteior</base-button
                             >
                         </div>
-                        <div class="col-3">
+                        <div class="col-6 col-md-3 mb-3">
                             <base-button block type="primary" @click="goToAnime">Detalhes</base-button>
                         </div>
-                        <div class="col-3 d-flex justify-content-center">
+                        <div class="col-6 col-md-3 mb-3 d-flex justify-content-center">
                             <WatchedButton ref="watchedButton" :item="episode" />
                         </div>
-                        <div class="col-3">
+                        <div class="col-6 col-md-3 mb-3">
                             <base-button
                                 v-if="episode.nextEpisode"
                                 block

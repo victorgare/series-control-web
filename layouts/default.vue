@@ -94,10 +94,20 @@ export default {
 }
 </script>
 <style scoped>
-.position-fixed {
-    bottom: 0;
-    right: 0;
-    left: 250px;
+@media (max-width: 576px) {
+    .position-fixed {
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
+}
+
+@media (min-width: 576px) {
+    .position-fixed {
+        bottom: 0;
+        right: 0;
+        left: 250px;
+    }
 }
 
 .footer-discount {
