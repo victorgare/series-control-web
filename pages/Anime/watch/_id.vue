@@ -19,7 +19,8 @@
                                     <b-skeleton-img card-img="center" />
                                 </div>
                             </template>
-                            <video ref="videoPlayer" playsinline class="video-js vjs-fluid m-auto w-auto mx-auto"> </video>
+                            <video ref="videoPlayer" playsinline class="video-js vjs-fluid m-auto w-auto mx-auto">
+                            </video>
                         </b-skeleton-wrapper>
                     </b-col>
                 </b-row>
@@ -89,8 +90,8 @@ export default {
 
         const video = {
             type: 'video/mp4',
-            // src: this.mountUrlVideo,
-            src: 'https://vjs.zencdn.net/v/oceans.mp4',
+            src: this.mountUrlVideo,
+            // src: 'https://vjs.zencdn.net/v/oceans.mp4',
         }
 
         this.player = videojs(this.$refs.videoPlayer, this.options, function onPlayerReady() {
