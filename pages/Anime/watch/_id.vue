@@ -100,9 +100,9 @@ export default {
             this.goToEpisode(this.episode.nextEpisode)
         })
 
-        this.player.on('error', (error) => {
+        this.player.on('error', () => {
             this.$modalAlert.showError({
-                text: JSON.stringify(error),
+                text: this.player.error(),
             })
         })
         this.player.on('timeupdate', this.timeUpdated)
