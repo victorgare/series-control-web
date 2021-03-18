@@ -21,7 +21,7 @@
                             </template>
                             <!-- playsinline
                                 class="video-js vjs-fluid m-auto w-auto mx-auto" -->
-                            <video ref="videoPlayer" width="320" height="240" controls>
+                            <video ref="videoPlayer" preload="none" width="320" height="240" controls>
                                 <source :src="mountUrlVideo" type="video/mp4" />
                             </video>
                         </b-skeleton-wrapper>
