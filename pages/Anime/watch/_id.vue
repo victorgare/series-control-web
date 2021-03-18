@@ -88,7 +88,8 @@ export default {
 
         const video = {
             type: 'video/mp4',
-            src: this.mountUrlVideo,
+            // src: this.mountUrlVideo,
+            src: 'https://vjs.zencdn.net/v/oceans.mp4',
         }
 
         this.player = videojs(this.$refs.videoPlayer, this.options, function onPlayerReady() {
