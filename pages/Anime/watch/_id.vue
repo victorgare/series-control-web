@@ -19,7 +19,7 @@
                                     <b-skeleton-img card-img="center" />
                                 </div>
                             </template>
-                            <video ref="videoPlayer" class="video-js vjs-fluid m-auto w-auto mx-auto"> </video>
+                            <video ref="videoPlayer" playsinline class="video-js vjs-fluid m-auto w-auto mx-auto"> </video>
                         </b-skeleton-wrapper>
                     </b-col>
                 </b-row>
