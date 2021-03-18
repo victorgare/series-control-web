@@ -19,7 +19,10 @@
                                     <b-skeleton-img card-img="center" />
                                 </div>
                             </template>
-                            <video ref="videoPlayer" playsinline class="video-js vjs-fluid m-auto w-auto mx-auto">
+                            <!-- playsinline
+                                class="video-js vjs-fluid m-auto w-auto mx-auto" -->
+                            <video ref="videoPlayer" width="320" height="240" controls>
+                                <source :src="mountUrlVideo" type="video/mp4" />
                             </video>
                         </b-skeleton-wrapper>
                     </b-col>
@@ -57,7 +60,7 @@
 </template>
 
 <script>
-import videojs from 'video.js'
+// import videojs from 'video.js'
 import WatchedButton from '~/components/Series/WatchedButton'
 require('video.js/dist/video-js.css')
 
@@ -88,27 +91,27 @@ export default {
     async mounted() {
         await this.getEpisode()
 
-        const video = {
-            type: 'video/mp4',
-            src: this.mountUrlVideo,
-            // src: 'https://vjs.zencdn.net/v/oceans.mp4',
-        }
+        // const video = {
+        //     type: 'video/mp4',
+        //     src: this.mountUrlVideo,
+        //     // src: 'https://vjs.zencdn.net/v/oceans.mp4',
+        // }
 
-        this.player = videojs(this.$refs.videoPlayer, this.options, function onPlayerReady() {
-            this.src(video)
-        })
+        // this.player = videojs(this.$refs.videoPlayer, this.options, function onPlayerReady() {
+        //     this.src(video)
+        // })
 
-        this.player.on('ended', () => {
-            this.$refs.watchedButton.handleWatched()
-            this.goToEpisode(this.episode.nextEpisode)
-        })
+        // this.player.on('ended', () => {
+        //     this.$refs.watchedButton.handleWatched()
+        //     this.goToEpisode(this.episode.nextEpisode)
+        // })
 
-        this.player.on('error', () => {
-            this.$modalAlert.showError({
-                text: this.player.error(),
-            })
-        })
-        this.player.on('timeupdate', this.timeUpdated)
+        // this.player.on('error', () => {
+        //     this.$modalAlert.showError({
+        //         text: this.player.error(),
+        //     })
+        // })
+        // this.player.on('timeupdate', this.timeUpdated)
     },
     beforeDestroy() {
         if (this.player) {
