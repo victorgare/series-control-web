@@ -70,6 +70,7 @@ export default {
                 autoplay: false,
                 controls: true,
                 responsive: true,
+                preload: 'auto',
             },
         }
     },
