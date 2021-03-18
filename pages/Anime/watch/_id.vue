@@ -19,7 +19,7 @@
                                     <b-skeleton-img card-img="center" />
                                 </div>
                             </template>
-                            <video ref="videoPlayer" class="video-js vjs-fluid m-auto w-auto mx-auto"> </video>
+                            <video ref="videoPlayer" playsinline class="video-js vjs-fluid m-auto w-auto mx-auto"> </video>
                         </b-skeleton-wrapper>
                     </b-col>
                 </b-row>
@@ -70,6 +70,7 @@ export default {
                 autoplay: false,
                 controls: true,
                 responsive: true,
+                preload: 'auto',
             },
         }
     },
@@ -101,9 +102,9 @@ export default {
             this.goToEpisode(this.episode.nextEpisode)
         })
 
-        this.player.on('error', (error) => {
+        this.player.on('error', () => {
             this.$modalAlert.showError({
-                text: JSON.stringify(error),
+                text: this.player.error(),
             })
         })
         this.player.on('timeupdate', this.timeUpdated)
