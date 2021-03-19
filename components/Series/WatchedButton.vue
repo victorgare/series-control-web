@@ -31,7 +31,11 @@ export default {
     methods: {
         async handleWatched() {
             try {
-                const result = (await this.$axios.get(`/episode/handleWatched/${this.internItem.id}`)).data
+                const result = (
+                    await this.$axios.post(`/episode/handleWatched`, {
+                        id: this.internItem.id,
+                    })
+                ).data
                 if (result.sucesso === true) {
                     this.internItem.watched = result.data
                 }

@@ -68,20 +68,18 @@ export default {
     components: { WatchedButton },
     data() {
         return {
+            episodeId: '',
             episode: {},
             player: null,
             options: {
                 autoplay: false,
                 controls: true,
                 responsive: true,
-                preload: 'none',
             },
+            timeUpdatedCheck: false,
         }
     },
     computed: {
-        getUrlId() {
-            return this.$route.params.id
-        },
         mountUrlVideo() {
             return `${this.$config.BASE_ROUTE}episode/watch/${encodeURIComponent(
                 this.episode.urlVideo,
@@ -89,39 +87,47 @@ export default {
         },
     },
     async mounted() {
+        this.episodeId = this.$route.params.id
+
         await this.getEpisode()
 
-        const video = {
-            type: 'video/mp4',
-            src: this.mountUrlVideo,
-            // src: 'https://vjs.zencdn.net/v/oceans.mp4',
-        }
-
-        this.player = videojs(this.$refs.videoPlayer, this.options, function onPlayerReady() {
-            this.src(video)
-        })
-
-        this.player.on('ended', () => {
-            this.$refs.watchedButton.handleWatched()
-            this.goToEpisode(this.episode.nextEpisode)
-        })
-
-        this.player.on('error', () => {
-            this.$modalAlert.showError({
-                text: this.player.error(),
-            })
-        })
-        this.player.on('timeupdate', this.timeUpdated)
+        this.configPlayer()
     },
     beforeDestroy() {
         if (this.player) {
+            const currentTime = this.player.currentTime()
+            this.updateTimeWatched(currentTime)
             this.player.dispose()
         }
     },
     methods: {
+        configPlayer() {
+            const video = {
+                type: 'video/mp4',
+                src: this.mountUrlVideo,
+            }
+
+            this.player = videojs(this.$refs.videoPlayer, this.options, function onPlayerReady() {
+                this.src(video)
+            })
+
+            this.player.on('ended', () => {
+                this.$refs.watchedButton.handleWatched()
+                this.goToEpisode(this.episode.nextEpisode)
+            })
+
+            this.player.on('error', () => {
+                this.$modalAlert.showError({
+                    text: this.player.error(),
+                })
+            })
+            this.player.on('timeupdate', this.timeUpdated)
+
+            this.player.currentTime(this.episode.timeWatched)
+        },
         async getEpisode() {
             try {
-                const result = (await this.$axios.get(`/episode/${this.getUrlId}`)).data
+                const result = (await this.$axios.get(`/episode/${this.episodeId}`)).data
 
                 this.episode = result.data
             } catch (error) {
@@ -136,12 +142,25 @@ export default {
             const currentTime = this.player.currentTime()
             const duration = this.player.duration()
 
-            const porcentagem = (currentTime * 100) / duration
+            const porcentagem = Math.trunc((currentTime * 100) / duration)
 
-            if (porcentagem > 95) {
-                // this.updateWatched()
+            if (porcentagem % 5 === 0) {
+                // esse tratamento serve pra que enquanto a porcentagem nao virar para o proximo ponto percental
+                // nao fique sobrecarregando o servidor
+                if (this.timeUpdatedCheck === false) {
+                    this.timeUpdatedCheck = true
+                    this.updateTimeWatched(currentTime)
+                }
+            } else {
+                this.timeUpdatedCheck = false
             }
-            console.log(porcentagem)
+        },
+        async updateTimeWatched(timeWatched) {
+            try {
+                await this.$axios.post(`/episode/${this.episodeId}/updateTimeWatched`, {
+                    TimeWatched: Math.trunc(timeWatched),
+                })
+            } catch (error) {}
         },
         goToAnime() {
             this.$router.push({ name: 'Anime-id', params: { id: this.episode.animeId } })
