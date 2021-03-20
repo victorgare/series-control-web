@@ -81,8 +81,11 @@ export default {
     },
     computed: {
         mountUrlVideo() {
+            const url =
+                'https://www.anitube.site/aHR0cHM6Ly9lbWFncmVjZXJwZXJkZW5kb2dvcmR1cmEuYmxvZ3Nwb3QuY29tLzIwMjAvMDcvMTQ4MjE0YWNkMzViNjgwOS5odG1s/0/bg.mp4'
             return `${this.$config.BASE_ROUTE}episode/watch/${encodeURIComponent(
-                this.episode.urlVideo,
+                // this.episode.urlVideo,
+                url,
             )}?token=${encodeURIComponent(this.$auth.getToken('local'))}`
         },
     },
@@ -171,10 +174,3 @@ export default {
     },
 }
 </script>
-
-<style scoped>
-.teste {
-    width: 950px;
-    height: 500px;
-}
-</style>

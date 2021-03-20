@@ -52,14 +52,6 @@
                 <b-row>
                     <b-col>
                         <div class="progress-wrapper">
-                            <!-- <div class="progress-primary">
-                                <div class="progress-label">
-                                    <span>Task completed</span>
-                                </div>
-                                <div class="progress-percentage">
-                                    <span>60%</span>
-                                </div>
-                            </div> -->
                             <base-progress
                                 type="success"
                                 :label="progressLabel"
@@ -81,7 +73,8 @@
                 <h5 class="mb-0">Episódios</h5>
             </b-card-header>
             <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
-                <Episode v-for="(episode, index) of episodes" :key="index" :item="episode" />
+                <Episode v-for="episode of getEpisodesUnwatched" :key="episode.id" :item="episode" />
+                <Episode v-for="episode of getEpisodesWatched" :key="episode.id" :item="episode" />
             </b-collapse>
         </b-card>
     </div>
@@ -109,10 +102,18 @@ export default {
         progressLabel() {
             return `${this.totalWatched}/${this.totalEpisodes}`
         },
-        totalWatched() {
+        getEpisodesWatched() {
             return this.episodes.filter((item) => {
                 return item.watched === true
-            }).length
+            })
+        },
+        getEpisodesUnwatched() {
+            return this.episodes.filter((item) => {
+                return item.watched === false
+            })
+        },
+        totalWatched() {
+            return this.getEpisodesWatched.length
         },
         percentageWatched() {
             const porcentagem = (this.totalWatched * 100) / this.totalEpisodes
