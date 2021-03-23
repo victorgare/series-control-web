@@ -56,7 +56,7 @@
                                 type="success"
                                 :label="progressLabel"
                                 show-label="true"
-                                height="10"
+                                :height="10"
                                 :value="percentageWatched"
                                 size="lg"
                             >
@@ -117,7 +117,7 @@ export default {
         },
         percentageWatched() {
             const porcentagem = (this.totalWatched * 100) / this.totalEpisodes
-            return porcentagem.toFixed(2)
+            return isNaN(porcentagem) ? 0 : parseFloat(porcentagem.toFixed(2))
         },
     },
     mounted() {
