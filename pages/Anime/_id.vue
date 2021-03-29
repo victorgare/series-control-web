@@ -52,16 +52,22 @@
                 <b-row>
                     <b-col>
                         <div class="progress-wrapper">
-                            <base-progress
-                                type="success"
-                                :label="progressLabel"
-                                show-label="true"
-                                :height="10"
-                                :value="percentageWatched"
-                                size="lg"
-                            >
-                                <slot label> da </slot>
-                            </base-progress>
+                            <b-skeleton-wrapper :loading="episodes.length <= 0">
+                                <template #loading>
+                                    <b-skeleton width="100%"></b-skeleton>
+                                </template>
+
+                                <base-progress
+                                    type="success"
+                                    :label="progressLabel"
+                                    show-label="true"
+                                    :height="10"
+                                    :value="percentageWatched"
+                                    size="lg"
+                                >
+                                    <slot label> da </slot>
+                                </base-progress>
+                            </b-skeleton-wrapper>
                         </div>
                     </b-col>
                 </b-row>

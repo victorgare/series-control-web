@@ -98,6 +98,13 @@ export default {
                         method: 'post',
                         propertyName: 'token',
                     },
+                    refresh: {
+                        url: '/user/refreshToken',
+                        method: 'get',
+                        property: 'refreshToken',
+                        data: 'refreshToken',
+                        tokenRequired: true,
+                    },
                     // logout: { url: BaseRoute + '/auth/logout', method: 'post' },
                     user: {
                         url: '/user',

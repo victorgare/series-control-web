@@ -75,7 +75,11 @@ export default {
                 autoplay: false,
                 controls: true,
                 responsive: true,
+                userActions: {
+                    hotkeys: true,
+                },
             },
+
             timeUpdatedCheck: false,
         }
     },
