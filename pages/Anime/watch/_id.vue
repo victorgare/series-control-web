@@ -63,6 +63,11 @@
 import videojs from 'video.js'
 import WatchedButton from '~/components/Series/WatchedButton'
 require('video.js/dist/video-js.css')
+// The actual plugin function is exported by this module, but it is also
+// attached to the `Player.prototype`; so, there is no need to assign it
+// to a variable.
+require('videojs-seek-buttons/dist/videojs-seek-buttons.min.js')
+require('videojs-seek-buttons/dist/videojs-seek-buttons.css')
 
 export default {
     components: { WatchedButton },
@@ -77,6 +82,12 @@ export default {
                 responsive: true,
                 userActions: {
                     hotkeys: true,
+                },
+                plugins: {
+                    seekButtons: {
+                        forward: 15,
+                        back: 15,
+                    },
                 },
             },
 
@@ -114,6 +125,11 @@ export default {
             this.player = videojs(this.$refs.videoPlayer, this.options, function onPlayerReady() {
                 this.src(video)
             })
+
+            // this.player.seekButtons({
+            //     forward: 30,
+            //     back: 10,
+            // })
 
             this.player.on('ended', () => {
                 this.$refs.watchedButton.handleWatched()
