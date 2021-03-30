@@ -38,7 +38,9 @@
                     <!-- <base-button block type="primary">Assistido</base-button> -->
                     <!-- </div> -->
                     <div class="col-12">
-                        <base-button block type="success" @click="goToEpisode">Continuar Assistindo</base-button>
+                        <base-button v-if="nextEpisode" block type="success" @click="goToEpisode"
+                            >Continuar Assistindo</base-button
+                        >
                     </div>
                 </div>
             </b-skeleton-wrapper>
