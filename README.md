@@ -18,3 +18,8 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+
+## Referencias
+https://demos.creative-tim.com/vue-argon-dashboard/documentation/?_ga=2.140762993.235558281.1614780561-930028765.1608514431
+https://www.creative-tim.com/learning-lab/bootstrap-vue/cards/argon-dashboard
