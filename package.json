@@ -22,6 +22,7 @@
     "core-js": "^3.8.3",
     "nuxt": "^2.14.12",
     "video.js": "^7.11.4",
+    "videojs-persistvolume": "^0.2.0",
     "videojs-seek-buttons": "^1.6.0"
   },
   "devDependencies": {

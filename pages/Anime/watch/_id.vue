@@ -62,6 +62,8 @@
 <script>
 import videojs from 'video.js'
 import WatchedButton from '~/components/Series/WatchedButton'
+
+import '~/plugins/videojs.persistvolume'
 require('video.js/dist/video-js.css')
 // The actual plugin function is exported by this module, but it is also
 // attached to the `Player.prototype`; so, there is no need to assign it
@@ -87,6 +89,9 @@ export default {
                     seekButtons: {
                         forward: 15,
                         back: 15,
+                    },
+                    persistvolume: {
+                        namespace: 'So-Viral-So-Hot',
                     },
                 },
             },
