@@ -38,10 +38,11 @@
                     </div>
                     <div class="col-12">
                         <base-nuxt-link
-                            v-if="nextEpisode"
+                            :loading="loadingNextEpisode"
+                            :disabled="nextEpisode === ''"
                             block
                             type="success"
-                            :to="{ name: 'Anime-watch-id', params: { id: this.nextEpisode } }"
+                            :to="{ name: 'Anime-watch-id', params: { id: nextEpisode } }"
                             >Continuar Assistindo</base-nuxt-link
                         >
                     </div>
@@ -64,6 +65,7 @@ export default {
     data() {
         return {
             nextEpisode: '',
+            loadingNextEpisode: false,
         }
     },
     mounted() {
@@ -72,6 +74,7 @@ export default {
     methods: {
         async getNextEpisode() {
             try {
+                this.loadingNextEpisode = true
                 const result = (await this.$axios.get(`/anime/${this.item.id}/getUnwatchedEpisode`)).data
 
                 this.nextEpisode = result.data
@@ -80,6 +83,8 @@ export default {
                     title: 'Erro',
                     text: error,
                 })
+            } finally {
+                this.loadingNextEpisode = false
             }
         },
     },

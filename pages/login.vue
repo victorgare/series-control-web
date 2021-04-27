@@ -39,7 +39,9 @@
                         >
                         </base-input>
                         <div class="text-center">
-                            <base-button native-type="submit" type="primary" class="my-4">Sign in</base-button>
+                            <base-button :loading="loading" native-type="submit" type="primary" class="my-4"
+                                >Sign in</base-button
+                            >
                         </div>
                     </form>
                 </div>
@@ -65,11 +67,13 @@ export default {
                 email: '',
                 password: '',
             },
+            loading: false,
         }
     },
     methods: {
         async userLogin() {
             try {
+                this.loading = true
                 await this.$auth.loginWith('local', {
                     data: this.model,
                 })
@@ -79,6 +83,8 @@ export default {
                     text: `Problemas ao logar ${err}`,
                     okOnly: true,
                 })
+            } finally {
+                this.loading = false
             }
         },
     },

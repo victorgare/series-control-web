@@ -1,23 +1,38 @@
 <template>
-    <component :is="tag" :type="tag === 'button' ? nativeType : ''" class="btn" :class="classes" @click="handleClick">
-        <span v-if="$slots.icon || (icon && $slots.default)" class="btn-inner--icon">
+    <component
+        :is="tag"
+        :type="tag === 'button' ? nativeType : ''"
+        class="btn"
+        :class="classes"
+        :disabled="disabled"
+        @click="handleClick"
+    >
+        <span v-if="($slots.icon || (icon && $slots.default)) && !loading" class="btn-inner--icon">
             <slot name="icon">
                 <i :class="icon"></i>
             </slot>
         </span>
-        <i v-if="!$slots.default" :class="icon"></i>
-        <span v-if="$slots.icon || (icon && $slots.default)" class="btn-inner--text">
+        <i v-if="!$slots.default && !loading" :class="icon"></i>
+        <span v-if="($slots.icon || (icon && $slots.default)) && !loading" class="btn-inner--text">
             <slot>
                 {{ text }}
             </slot>
         </span>
-        <slot v-if="!$slots.icon && !icon"></slot>
+        <slot v-if="!$slots.icon && !icon && !loading"></slot>
+        <div v-if="loading" class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
     </component>
 </template>
 <script>
 export default {
     name: 'BaseButton',
     props: {
+        loading: {
+            type: Boolean,
+            default: false,
+            description: 'If the button is waiting for something',
+        },
         tag: {
             type: String,
             default: 'button',
@@ -73,6 +88,11 @@ export default {
             default: false,
             description: 'Whether button is of block type',
         },
+        disabled: {
+            type: Boolean,
+            default: false,
+            description: 'If the button is disabled',
+        },
     },
     computed: {
         classes() {
@@ -88,7 +108,16 @@ export default {
             if (this.size) {
                 btnClasses.push(`btn-${this.size}`)
             }
+
+            if (this.tag === 'a' && this.disabled) {
+                btnClasses.push('disabled')
+            }
             return btnClasses
+        },
+        classesSpinner() {
+            const spinnerClasses = [`text-${this.type}`]
+
+            return spinnerClasses
         },
     },
     methods: {

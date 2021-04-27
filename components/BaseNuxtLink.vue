@@ -1,17 +1,20 @@
 <template>
     <nuxt-link :to="to" :class="classes" @click="handleClick">
-        <span v-if="$slots.icon || (icon && $slots.default)" class="btn-inner--icon">
+        <span v-if="($slots.icon || (icon && $slots.default)) && !loading" class="btn-inner--icon">
             <slot name="icon">
                 <i :class="icon"></i>
             </slot>
         </span>
-        <i v-if="!$slots.default" :class="icon"></i>
-        <span v-if="$slots.icon || (icon && $slots.default)" class="btn-inner--text">
+        <i v-if="!$slots.default && !loading" :class="icon"></i>
+        <span v-if="($slots.icon || (icon && $slots.default)) && !loading" class="btn-inner--text">
             <slot>
                 {{ text }}
             </slot>
         </span>
-        <slot v-if="!$slots.icon && !icon"></slot>
+        <slot v-if="!$slots.icon && !icon && !loading"></slot>
+        <div v-if="loading" class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
     </nuxt-link>
 </template>
 <script>
@@ -69,6 +72,16 @@ export default {
             default: false,
             description: 'Whether button is of block type',
         },
+        disabled: {
+            type: Boolean,
+            default: false,
+            description: 'If the anchor is disabled',
+        },
+        loading: {
+            type: Boolean,
+            default: false,
+            description: 'If the button is waiting for something',
+        },
     },
     computed: {
         classes() {
@@ -85,7 +98,9 @@ export default {
             if (this.size) {
                 btnClasses.push(`btn-${this.size}`)
             }
-
+            if (this.disabled) {
+                btnClasses.push('disabled')
+            }
             return btnClasses
         },
     },
