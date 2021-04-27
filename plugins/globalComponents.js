@@ -16,7 +16,7 @@ import Modal from '../components/Modal'
 import StatsCard from '../components/StatsCard'
 import TabPane from '../components/Tabs/TabPane'
 import Tabs from '../components/Tabs/Tabs'
-
+import BaseNuxtLink from '../components/BaseNuxtLink'
 // import { ElTooltip, ElPopover } from "element-plus";
 
 const GlobalComponents = {
@@ -39,6 +39,7 @@ const GlobalComponents = {
         app.component('StatsCard', StatsCard)
         app.component('TabPane', TabPane)
         app.component('Tabs', Tabs)
+        app.component('BaseNuxtLink', BaseNuxtLink)
         // app.use(ElTooltip);
         // app.use(ElPopover);
     },

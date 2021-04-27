@@ -33,23 +33,23 @@
                     </template>
                     <div class="row mt-3">
                         <div v-if="episode.previousEpisode" class="col-6 col-md-3 mb-3">
-                            <base-button block type="info" @click="goToEpisode(episode.previousEpisode)"
-                                >Anteior</base-button
+                            <base-nuxt-link block type="info" :to="makeRouteObject(episode.previousEpisode)"
+                                >Anteior</base-nuxt-link
                             >
                         </div>
                         <div class="col-6 col-md-3 mb-3">
-                            <base-button block type="primary" @click="goToAnime">Detalhes</base-button>
+                            <base-nuxt-link block type="primary" :to="goToAnime">Detalhes</base-nuxt-link>
                         </div>
                         <div class="col-6 col-md-3 mb-3 d-flex justify-content-center">
                             <WatchedButton ref="watchedButton" :item="episode" />
                         </div>
                         <div class="col-6 col-md-3 mb-3">
-                            <base-button
+                            <base-nuxt-link
                                 v-if="episode.nextEpisode"
                                 block
                                 type="success"
-                                @click="goToEpisode(episode.nextEpisode)"
-                                >Próximo</base-button
+                                :to="makeRouteObject(episode.nextEpisode)"
+                                >Próximo</base-nuxt-link
                             >
                         </div>
                     </div>
@@ -104,6 +104,9 @@ export default {
             return `${this.$config.BASE_ROUTE}episode/watch/${encodeURIComponent(
                 this.episode.urlVideo,
             )}?token=${encodeURIComponent(this.$auth.getToken('local'))}`
+        },
+        goToAnime() {
+            return { name: 'Anime-id', params: { id: this.episode.animeId } }
         },
     },
     async mounted() {
@@ -187,11 +190,12 @@ export default {
                 })
             } catch (error) {}
         },
-        goToAnime() {
-            this.$router.push({ name: 'Anime-id', params: { id: this.episode.animeId } })
+        makeRouteObject(episode) {
+            return { name: 'Anime-watch-id', params: { id: episode } }
         },
         goToEpisode(episode) {
-            this.$router.push({ name: 'Anime-watch-id', params: { id: episode } })
+            const routeObject = this.makeRouteObject(episode)
+            this.$router.push(routeObject)
         },
     },
 }

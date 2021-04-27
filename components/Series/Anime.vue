@@ -32,14 +32,17 @@
                 </template>
                 <div class="row">
                     <div class="col-12 mb-3">
-                        <base-button block type="info" @click="goToAnimeDetails">Detalhes</base-button>
+                        <base-nuxt-link block type="info" :to="{ name: 'Anime-id', params: { id: item.id } }"
+                            >Detalhes</base-nuxt-link
+                        >
                     </div>
-                    <!-- <div class="col-6 mb-3"> -->
-                    <!-- <base-button block type="primary">Assistido</base-button> -->
-                    <!-- </div> -->
                     <div class="col-12">
-                        <base-button v-if="nextEpisode" block type="success" @click="goToEpisode"
-                            >Continuar Assistindo</base-button
+                        <base-nuxt-link
+                            v-if="nextEpisode"
+                            block
+                            type="success"
+                            :to="{ name: 'Anime-watch-id', params: { id: this.nextEpisode } }"
+                            >Continuar Assistindo</base-nuxt-link
                         >
                     </div>
                 </div>
@@ -67,10 +70,6 @@ export default {
         this.getNextEpisode()
     },
     methods: {
-        goToAnimeDetails() {
-            this.$router.push({ name: 'Anime-id', params: { id: this.item.id } })
-        },
-
         async getNextEpisode() {
             try {
                 const result = (await this.$axios.get(`/anime/${this.item.id}/getUnwatchedEpisode`)).data
@@ -82,9 +81,6 @@ export default {
                     text: error,
                 })
             }
-        },
-        goToEpisode() {
-            this.$router.push({ name: 'Anime-watch-id', params: { id: this.nextEpisode } })
         },
     },
 }

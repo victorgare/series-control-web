@@ -74,12 +74,26 @@
             </b-card-text>
         </b-card>
 
-        <b-card no-body>
-            <b-card-header v-b-toggle.accordion-1 header-tag="header" href="#" role="tab">
-                <h5 class="mb-0">Episódios</h5>
+        <b-card no-body class="mb-2">
+            <b-card-header v-b-toggle.assistir header-tag="header" href="#" role="tab">
+                <h5 class="mb-0"
+                    >Episódios Assistir
+                    <span class="text-success">●</span>
+                </h5>
             </b-card-header>
-            <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
+            <b-collapse id="assistir" visible accordion="assistir" role="tabpanel">
                 <Episode v-for="episode of getEpisodesUnwatched" :key="episode.id" :item="episode" />
+            </b-collapse>
+        </b-card>
+
+        <b-card no-body>
+            <b-card-header v-b-toggle.assistidos header-tag="header" href="#" role="tab">
+                <h5 class="mb-0"
+                    >Episódios Assistidos
+                    <span class="text-danger">●</span>
+                </h5>
+            </b-card-header>
+            <b-collapse id="assistidos" visible accordion="assistidos" role="tabpanel">
                 <Episode v-for="episode of getEpisodesWatched" :key="episode.id" :item="episode" />
             </b-collapse>
         </b-card>

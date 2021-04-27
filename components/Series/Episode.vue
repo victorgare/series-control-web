@@ -5,7 +5,9 @@
             <b-row align-v="center">
                 <b-col class="ml-4">
                     <h4 class="mb-0">
-                        <a href="javascript:;">{{ internItem.episodeNumber }} - {{ internItem.description }}</a>
+                        <base-nuxt-link type="" :to="watch"
+                            >{{ internItem.episodeNumber }} - {{ internItem.description }}</base-nuxt-link
+                        >
                     </h4>
                     <p class="text-sm text-muted mb-0">{{ internItem.name }}</p>
                     <span :class="{ 'text-success': watched, 'text-danger': !watched }">●</span>
@@ -13,9 +15,9 @@
                 </b-col>
                 <b-col md="auto">
                     <WatchedButton :item="internItem" />
-                    <base-button icon type="success" @click="watch">
+                    <base-nuxt-link icon type="success" :to="watch">
                         <span class="btn-inner--icon"><i class="ni ni-button-play"></i></span>
-                    </base-button>
+                    </base-nuxt-link>
                 </b-col>
             </b-row>
         </card>
@@ -41,11 +43,8 @@ export default {
         watched() {
             return this.internItem.watched === true
         },
-    },
-
-    methods: {
         watch() {
-            this.$router.push({ name: 'Anime-watch-id', params: { id: this.internItem.id } })
+            return { name: 'Anime-watch-id', params: { id: this.internItem.id } }
         },
     },
 }
