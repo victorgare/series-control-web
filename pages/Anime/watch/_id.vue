@@ -108,6 +108,9 @@ export default {
         goToAnime() {
             return { name: 'Anime-id', params: { id: this.episode.animeId } }
         },
+        isContinueWatching() {
+            return this.$route.query.continueWatching === 'true'
+        },
     },
     async mounted() {
         this.episodeId = this.$route.params.id
@@ -134,14 +137,9 @@ export default {
                 this.src(video)
             })
 
-            // this.player.seekButtons({
-            //     forward: 30,
-            //     back: 10,
-            // })
-
-            this.player.on('ended', () => {
-                this.$refs.watchedButton.handleWatched()
-                this.goToEpisode(this.episode.nextEpisode)
+            this.player.on('ended', async () => {
+                await this.$refs.watchedButton.handleWatched()
+                this.goToEpisode(this.episode.nextEpisode, true)
             })
 
             this.player.on('error', () => {
@@ -151,7 +149,13 @@ export default {
             })
             this.player.on('timeupdate', this.timeUpdated)
 
-            this.player.currentTime(this.episode.timeWatched)
+            this.player.on('loadedmetadata', () => {
+                this.player.currentTime(this.episode.timeWatched)
+            })
+
+            if (this.isContinueWatching) {
+                this.player.play()
+            }
         },
         async getEpisode() {
             try {
@@ -193,8 +197,15 @@ export default {
         makeRouteObject(episode) {
             return { name: 'Anime-watch-id', params: { id: episode } }
         },
-        goToEpisode(episode) {
+        goToEpisode(episode, continueWatching) {
             const routeObject = this.makeRouteObject(episode)
+
+            if (continueWatching === true) {
+                routeObject.query = {
+                    continueWatching,
+                }
+            }
+
             this.$router.push(routeObject)
         },
     },
