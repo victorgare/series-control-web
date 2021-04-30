@@ -35,6 +35,7 @@ export default {
         '~/plugins/globalDirectives.js',
         '~/plugins/sidebar.js',
         '~/plugins/modalAlert.js',
+        '~/plugins/axios.js',
     ],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
