@@ -1,7 +1,25 @@
 <template>
     <div>
+        <label class="h4 text-white text-uppercase d-none d-lg-inline-block">Continue Assistindo</label>
         <b-card-group deck>
-            <Anime v-for="(anime, index) in animes" :key="index" :item="anime" />
+            <Anime
+                v-for="(anime, index) in watching"
+                :key="index"
+                :item="anime.anime"
+                :next-episode="anime.nextEpisode"
+            />
+        </b-card-group>
+
+        <hr class="border-white" />
+
+        <label class="h4 text-white text-uppercase d-none d-lg-inline-block">Assistir novamente</label>
+        <b-card-group deck>
+            <Anime
+                v-for="(anime, index) in watched"
+                :key="index"
+                :item="anime.anime"
+                :next-episode="anime.nextEpisode"
+            />
         </b-card-group>
     </div>
 </template>
@@ -16,13 +34,25 @@ export default {
             animes: [],
         }
     },
+    computed: {
+        watching() {
+            return this.animes.filter((item) => {
+                return item.nextEpisode && item.nextEpisode !== ''
+            })
+        },
+        watched() {
+            return this.animes.filter((item) => {
+                return !item.nextEpisode || item.nextEpisode === ''
+            })
+        },
+    },
     async mounted() {
         await this.getAnimes()
     },
     methods: {
         async getAnimes() {
             try {
-                const result = (await this.$axios.get('anime/getAnimes')).data
+                const result = (await this.$axios.get('anime/getUserAnimes')).data
 
                 this.animes = result.list
             } catch (error) {

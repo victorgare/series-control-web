@@ -38,7 +38,6 @@
                     </div>
                     <div class="col-12">
                         <base-nuxt-link
-                            :loading="loadingNextEpisode"
                             :disabled="nextEpisode === ''"
                             block
                             type="success"
@@ -61,31 +60,10 @@ export default {
                 return {}
             },
         },
-    },
-    data() {
-        return {
-            nextEpisode: '',
-            loadingNextEpisode: false,
-        }
-    },
-    mounted() {
-        this.getNextEpisode()
-    },
-    methods: {
-        async getNextEpisode() {
-            try {
-                this.loadingNextEpisode = true
-                const result = (await this.$axios.get(`/anime/${this.item.id}/getUnwatchedEpisode`)).data
-
-                this.nextEpisode = result.data
-            } catch (error) {
-                this.$modalAlert.showError({
-                    title: 'Erro',
-                    text: error,
-                })
-            } finally {
-                this.loadingNextEpisode = false
-            }
+        nextEpisode: {
+            type: String,
+            default: '',
+            description: 'Id do próximo episódio',
         },
     },
 }

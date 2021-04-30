@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-xl-8 mb-5 mb-xl-0">
+            <div class="col-xl-12 mb-5 mb-xl-0">
                 <Animes />
             </div>
         </div>
