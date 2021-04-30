@@ -82,7 +82,13 @@
                 </h5>
             </b-card-header>
             <b-collapse id="assistir" visible accordion="assistir" role="tabpanel">
-                <Episode v-for="episode of getEpisodesUnwatched" :key="episode.id" :item="episode" />
+                <Episode
+                    v-for="episode of getEpisodesUnwatched"
+                    :ref="episode.id"
+                    :key="episode.id"
+                    :item="episode"
+                    @afterHandledWatched="handlePreviousEpisodes"
+                />
             </b-collapse>
         </b-card>
 
@@ -166,6 +172,32 @@ export default {
                 this.$modalAlert.showError({
                     title: 'Erro',
                     text: error,
+                })
+            }
+        },
+        handlePreviousEpisodes(obj) {
+            const indexEpisode = this.episodes.findIndex((item) => {
+                return item.id === obj
+            })
+
+            const episodesToHandleWatched = []
+            for (let index = 0; index < indexEpisode; index++) {
+                const episode = this.episodes[index]
+
+                if (episode.watched !== true) {
+                    episodesToHandleWatched.push(episode.id)
+                }
+            }
+
+            if (episodesToHandleWatched.length > 0) {
+                this.$modalAlert.showInfo({
+                    title: 'Marcar episódios',
+                    text: `Existem ${episodesToHandleWatched.length} episódios anteriores que não estão marcados como assistidos, gostaria de marca-los?`,
+                    onConfirm: async () => {
+                        for (const episodeToHandle of episodesToHandleWatched) {
+                            await this.$refs[episodeToHandle][0].$refs.watchedButton.handleWatched()
+                        }
+                    },
                 })
             }
         },

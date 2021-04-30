@@ -14,7 +14,7 @@
                     <small>Assistido</small>
                 </b-col>
                 <b-col md="auto">
-                    <WatchedButton :item="internItem" />
+                    <WatchedButton ref="watchedButton" :item="internItem" @afterHandledWatched="afterHandledWatched" />
                     <base-nuxt-link icon type="success" :to="watch">
                         <span class="btn-inner--icon"><i class="ni ni-button-play"></i></span>
                     </base-nuxt-link>
@@ -45,6 +45,11 @@ export default {
         },
         watch() {
             return { name: 'Anime-watch-id', params: { id: this.internItem.id } }
+        },
+    },
+    methods: {
+        afterHandledWatched() {
+            this.$emit('afterHandledWatched', this.internItem.id)
         },
     },
 }

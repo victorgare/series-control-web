@@ -39,6 +39,8 @@ export default {
                 if (result.sucesso === true) {
                     this.internItem.watched = result.data
                 }
+
+                this.$emit('afterHandledWatched')
             } catch (error) {
                 this.$modalAlert.showError({
                     title: 'Erro',

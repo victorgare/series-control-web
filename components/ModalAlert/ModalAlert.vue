@@ -90,7 +90,6 @@ export default {
             try {
                 if (typeof this.onCancel === typeof Function) {
                     await this.onCancel()
-                    this.closeModal()
                 }
             } catch (error) {
                 this.show({
@@ -98,6 +97,8 @@ export default {
                     type: 'error',
                     text: error,
                 })
+            } finally {
+                this.closeModal()
             }
         },
         show(params) {

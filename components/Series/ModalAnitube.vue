@@ -59,7 +59,6 @@ export default {
                     title: 'Sucesso',
                     text: 'Cadastrado',
                     onConfirm: () => {
-                        debugger
                         this.$nuxt.refresh()
                     },
                 })
