@@ -1,6 +1,6 @@
 <template>
     <div>
-        <label class="h4 text-white text-uppercase d-none d-lg-inline-block">Continue Assistindo</label>
+        <label class="h4 text-white text-uppercase">Continue Assistindo</label>
         <b-card-group deck>
             <Anime
                 v-for="(anime, index) in watching"
@@ -12,7 +12,7 @@
 
         <hr class="border-white" />
 
-        <label class="h4 text-white text-uppercase d-none d-lg-inline-block">Assistir novamente</label>
+        <label class="h4 text-white text-uppercase">Assistir novamente</label>
         <b-card-group deck>
             <Anime
                 v-for="(anime, index) in watched"
