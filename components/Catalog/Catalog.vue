@@ -2,6 +2,7 @@
     <div>
         <b-card tag="article" style="max-width: 20rem" class="mb-2">
             <BaseAnime :item="item" />
+
             <b-skeleton-wrapper :loading="!item.id">
                 <template #loading>
                     <div> <b-skeleton type="button" size="md"></b-skeleton> </div>
@@ -13,13 +14,15 @@
                         >
                     </div>
                     <div class="col-12">
-                        <base-nuxt-link
-                            :disabled="nextEpisode === ''"
+                        <base-button
+                            :disabled="item.ownedByUser === true"
                             block
+                            icon
                             type="success"
-                            :to="{ name: 'Anime-watch-id', params: { id: nextEpisode } }"
-                            >Continuar Assistindo</base-nuxt-link
+                            @click="handleWatched"
                         >
+                            Adicionar
+                        </base-button>
                     </div>
                 </div>
             </b-skeleton-wrapper>
@@ -38,13 +41,6 @@ export default {
                 return {}
             },
         },
-        nextEpisode: {
-            type: String,
-            default: '',
-            description: 'Id do próximo episódio',
-        },
     },
 }
 </script>
-
-<style></style>
