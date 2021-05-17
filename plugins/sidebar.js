@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import Sidebar from '~/components/SideBar/SideBar.vue'
-import SidebarItem from '~/components/SideBar/SidebarItem.vue'
+import Sidebar from '~/components/Sidebar/SideBar.vue'
+import SidebarItem from '~/components/Sidebar/SidebarItem.vue'
 
 const SidebarStore = {
     showSidebar: false,
