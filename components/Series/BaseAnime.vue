@@ -21,6 +21,8 @@
                 </template>
 
                 <badge pill type="primary">{{ item.episodesQuantity }} episódios</badge>
+                <badge v-if="item.ownedByUser === true" outline type="success">Já assistindo</badge>
+                <badge v-else outline type="danger">Não iniciado</badge>
             </b-skeleton-wrapper>
         </b-card-text>
 

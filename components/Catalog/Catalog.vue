@@ -3,7 +3,7 @@
         <b-card tag="article" style="max-width: 20rem" class="mb-2">
             <BaseAnime :item="item" />
 
-            <b-skeleton-wrapper :loading="!item.id">
+            <b-skeleton-wrapper :loading="!internItem.id">
                 <template #loading>
                     <div> <b-skeleton type="button" size="md"></b-skeleton> </div>
                 </template>
@@ -15,11 +15,12 @@
                     </div>
                     <div class="col-12">
                         <base-button
-                            :disabled="item.ownedByUser === true"
+                            :loading="loadingAddToUser"
+                            :disabled="internItem.ownedByUser === true"
                             block
                             icon
                             type="success"
-                            @click="handleWatched"
+                            @click="addToUser"
                         >
                             Adicionar
                         </base-button>
@@ -40,6 +41,35 @@ export default {
             default: () => {
                 return {}
             },
+        },
+    },
+    data() {
+        return {
+            loadingAddToUser: false,
+            internItem: this.item,
+        }
+    },
+    methods: {
+        async addToUser() {
+            this.loadingAddToUser = true
+            try {
+                await this.$axios.post('anitube/create', {
+                    id: this.internItem.id,
+                })
+
+                this.internItem.ownedByUser = true
+                this.$modalAlert.showSuccess({
+                    title: 'Sucesso',
+                    text: 'Cadastrado',
+                })
+            } catch (error) {
+                this.$modalAlert.showError({
+                    title: 'Erro',
+                    text: error,
+                })
+            } finally {
+                this.loadingAddToUser = false
+            }
         },
     },
 }
