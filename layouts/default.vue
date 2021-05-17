@@ -9,6 +9,13 @@
                         path: '/',
                     }"
                 />
+                <sidebar-item
+                    :link="{
+                        name: 'Catalogo',
+                        icon: 'ni ni-bullet-list-67 text-red',
+                        path: '/catalog',
+                    }"
+                />
                 <!-- 
                 <sidebar-item
                     :link="{
@@ -31,13 +38,7 @@
                         path: '/profile',
                     }"
                 />
-                <sidebar-item
-                    :link="{
-                        name: 'Catalogo',
-                        icon: 'ni ni-bullet-list-67 text-red',
-                        path: '/catalog',
-                    }"
-                />
+                
                 <sidebar-item
                     :link="{
                         name: 'Login',
