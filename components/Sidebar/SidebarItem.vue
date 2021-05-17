@@ -1,6 +1,12 @@
 <template>
     <li class="nav-item">
-        <router-link :to="link.path" class="nav-link" :target="link.target" :href="'#' + link.path" @click="linkClick">
+        <router-link
+            :to="link.path"
+            class="nav-link"
+            :target="link.target"
+            :href="'#' + link.path"
+            @click.native="linkClick"
+        >
             <i :class="link.icon"></i>
             <span class="nav-link-text">{{ link.name }}</span>
         </router-link>

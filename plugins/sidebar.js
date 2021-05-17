@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import Sidebar from '~/components/Sidebar/SideBar.vue'
-import SidebarItem from '~/components/Sidebar/SidebarItem.vue'
+import Sidebar from '~/components/SideBar/SideBar.vue'
+import SidebarItem from '~/components/SideBar/SidebarItem.vue'
 
-const SidebarStore = Vue.observable({
+const SidebarStore = {
     showSidebar: false,
     sidebarLinks: [],
     isMinimized: false,
@@ -23,10 +23,19 @@ const SidebarStore = Vue.observable({
 
         this.isMinimized = !this.isMinimized
     },
-})
-
-Vue.component('SideBar', Sidebar)
-Vue.component('SidebarItem', SidebarItem)
-export default ({ app }, inject) => {
-    inject('sidebar', SidebarStore)
 }
+Vue.observable(SidebarStore)
+const SidebarPlugin = {
+    install(app, options) {
+        if (options && options.sidebarLinks) {
+            SidebarStore.sidebarLinks = options.sidebarLinks
+        }
+
+        app.prototype.$sidebar = SidebarStore
+        app.component('SideBar', Sidebar)
+        app.component('SidebarItem', SidebarItem)
+    },
+}
+
+Vue.use(SidebarPlugin)
+export default SidebarPlugin
