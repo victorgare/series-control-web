@@ -33,6 +33,10 @@ export default {
             type: Object,
             default: () => {},
         },
+        origemAnime: {
+            type: String,
+            default: '',
+        },
     },
     data() {
         return {
@@ -44,7 +48,10 @@ export default {
             return this.internItem.watched === true
         },
         watch() {
-            return { name: 'Anime-watch-id', params: { id: this.internItem.id } }
+            return {
+                name: 'Anime-origemAnime-watch-id',
+                params: { id: this.internItem.id, origemAnime: this.origemAnime },
+            }
         },
     },
     methods: {

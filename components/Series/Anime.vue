@@ -17,7 +17,10 @@
                             :disabled="nextEpisode === ''"
                             block
                             type="success"
-                            :to="{ name: 'Anime-watch-id', params: { id: nextEpisode } }"
+                            :to="{
+                                name: 'Anime-origemAnime-watch-id',
+                                params: { id: nextEpisode, origemAnime: item.origemAnime },
+                            }"
                             >Continuar Assistindo</base-nuxt-link
                         >
                     </div>

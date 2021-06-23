@@ -73,9 +73,17 @@ require('videojs-seek-buttons/dist/videojs-seek-buttons.css')
 
 export default {
     components: { WatchedButton },
+    validate({ params, error }) {
+        if (params.origemAnime && params.id) {
+            return true
+        }
+
+        return error({ statusCode: 404, message: 'err message' })
+    },
     data() {
         return {
             episodeId: '',
+            origemAnime: '',
             episode: {},
             player: null,
             options: {
@@ -101,7 +109,7 @@ export default {
     },
     computed: {
         mountUrlVideo() {
-            return `${this.$config.BASE_ROUTE}episode/watch/${encodeURIComponent(
+            return `${this.$config.BASE_ROUTE}${this.origemAnime}/watch/${encodeURIComponent(
                 this.episode.urlVideo,
             )}?token=${encodeURIComponent(this.$auth.getToken('local'))}`
         },
@@ -114,6 +122,7 @@ export default {
     },
     async mounted() {
         this.episodeId = this.$route.params.id
+        this.origemAnime = this.$route.params.origemAnime
 
         await this.getEpisode()
 
@@ -195,7 +204,7 @@ export default {
             } catch (error) {}
         },
         makeRouteObject(episode) {
-            return { name: 'Anime-watch-id', params: { id: episode } }
+            return { name: 'Anime-origemAnime-watch-id', params: { id: episode, origemAnime: this.origemAnime } }
         },
         goToEpisode(episode, continueWatching) {
             const routeObject = this.makeRouteObject(episode)
