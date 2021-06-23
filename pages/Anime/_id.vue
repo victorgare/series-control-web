@@ -87,6 +87,7 @@
                     :ref="episode.id"
                     :key="episode.id"
                     :item="episode"
+                    :origem-anime="anime.origemAnime"
                     @afterHandledWatched="handlePreviousEpisodes"
                 />
             </b-collapse>

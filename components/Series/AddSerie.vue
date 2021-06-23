@@ -6,23 +6,37 @@
                 <base-button type="primary" size="lg" :rounded="true" icon="fa fa-plus"></base-button>
             </template>
             <a class="dropdown-item" @click.prevent="adicionarAnitube">
-                <img src="https://www.anitube.site/wp-content/uploads/cropped-Favicon6-32x32.png" />
+                <img
+                    src="https://www.anitube.site/wp-content/uploads/cropped-Favicon6-32x32.png"
+                    class="fav-icon-size"
+                />
                 Anitube
+            </a>
+
+            <a class="dropdown-item" @click.prevent="adicionarGoyabu">
+                <img src="https://goyabu.com/favicon.png" class="fav-icon-size" />
+                Goyabu
             </a>
         </base-dropdown>
         <ModalAnitube ref="modalAnitube" class="dropdown-item" />
+        <ModalGoyabu ref="modalGoyabu" class="dropdown-item" />
     </div>
 </template>
 
 <script>
 import ModalAnitube from '~/components/Series/ModalAnitube'
+import ModalGoyabu from '~/components/Series/ModalGoyabu'
 export default {
     components: {
         ModalAnitube,
+        ModalGoyabu,
     },
     methods: {
         adicionarAnitube() {
             this.$refs.modalAnitube.showModal()
+        },
+        adicionarGoyabu() {
+            this.$refs.modalGoyabu.showModal()
         },
     },
 }
@@ -34,13 +48,7 @@ export default {
     right: 0;
 }
 
-.anitube-icon {
-    display: inline-block;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background: url('https://www.anitube.site/wp-content/uploads/cropped-Favicon6-32x32.png');
+.fav-icon-size {
     height: 32px;
     width: 32px;
     /* Other styles here */

@@ -12,11 +12,12 @@
             </b-skeleton-wrapper>
         </b-card-title>
 
-        <b-card-text v-if="item.episodesQuantity !== undefined">
-            <b-skeleton-wrapper :loading="!item.urlCapa">
+        <b-card-text>
+            <b-skeleton-wrapper v-if="item.episodesQuantity !== undefined" :loading="!item.urlCapa">
                 <template #loading>
                     <div>
-                        <b-skeleton-img card-img="top" aspect="3:1" />
+                        <b-skeleton></b-skeleton>
+                        <b-skeleton></b-skeleton>
                     </div>
                 </template>
 
@@ -24,8 +25,8 @@
                 <badge v-if="item.ownedByUser === true" outline type="success">Já assistindo</badge>
                 <badge v-else outline type="danger">Não iniciado</badge>
             </b-skeleton-wrapper>
+            <badge pill type="info">{{ item.origemAnime }}</badge>
         </b-card-text>
-
         <b-card-text>
             <b-skeleton-wrapper :loading="!item.urlCapa">
                 <template #loading>
