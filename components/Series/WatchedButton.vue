@@ -1,5 +1,5 @@
 <template>
-    <base-button icon :type="getTypeBotaoAssistido" @click="handleWatched">
+    <base-button :loading="loading" icon :type="getTypeBotaoAssistido" @click="handleWatched">
         <span class="btn-inner--icon">
             <i class="fa fa-eye" :class="{ 'fa-eye': !watched, 'fa-eye-slash': watched }"> </i>
         </span>
@@ -17,6 +17,7 @@ export default {
     data() {
         return {
             internItem: this.item,
+            loading: false,
         }
     },
 
@@ -31,6 +32,8 @@ export default {
     methods: {
         async handleWatched() {
             try {
+                this.loading = true
+
                 const result = (
                     await this.$axios.post(`/episode/handleWatched`, {
                         id: this.internItem.id,
@@ -46,6 +49,8 @@ export default {
                     title: 'Erro',
                     text: error,
                 })
+            } finally {
+                this.loading = false
             }
         },
     },

@@ -4,7 +4,7 @@
         :type="tag === 'button' ? nativeType : ''"
         class="btn"
         :class="classes"
-        :disabled="disabled"
+        :disabled="disabled || loading"
         @click="handleClick"
     >
         <span v-if="($slots.icon || (icon && $slots.default)) && !loading" class="btn-inner--icon">
@@ -19,7 +19,7 @@
             </slot>
         </span>
         <slot v-if="!$slots.icon && !icon && !loading"></slot>
-        <div v-if="loading" class="spinner-border" role="status">
+        <div v-if="loading" class="spinner-border spinner-size" role="status">
             <span class="sr-only">Loading...</span>
         </div>
     </component>
@@ -127,3 +127,10 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+.spinner-size {
+    width: 1rem;
+    height: 1rem;
+}
+</style>
