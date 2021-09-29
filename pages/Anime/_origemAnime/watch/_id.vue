@@ -105,6 +105,7 @@ export default {
             },
 
             timeUpdatedCheck: false,
+            timeAlreadyWatchedSeted: false,
         }
     },
     computed: {
@@ -151,15 +152,21 @@ export default {
                 this.goToEpisode(this.episode.nextEpisode, true)
             })
 
-            this.player.on('error', () => {
-                this.$modalAlert.showError({
-                    text: this.player.error(),
-                })
+            this.player.on('error', async () => {
+                await this.$axios.get('/ping')
             })
             this.player.on('timeupdate', this.timeUpdated)
 
-            this.player.on('loadedmetadata', () => {
-                this.player.currentTime(this.episode.timeWatched)
+            // loadedmetadata
+            this.player.on('play', () => {
+                if (this.timeAlreadyWatchedSeted === false) {
+                    this.player.currentTime(this.episode.timeWatched)
+                    this.timeAlreadyWatchedSeted = true
+                }
+            })
+
+            this.player.on('progress', (teste) => {
+                console.log(teste)
             })
 
             if (this.isContinueWatching) {
