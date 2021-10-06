@@ -153,7 +153,7 @@ export default {
             })
 
             this.player.on('error', async () => {
-                await this.$axios.get('/ping')
+                await this.$axios.get('/user')
             })
             this.player.on('timeupdate', this.timeUpdated)
 
