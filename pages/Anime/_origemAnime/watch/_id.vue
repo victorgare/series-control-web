@@ -106,6 +106,7 @@ export default {
 
             timeUpdatedCheck: false,
             timeAlreadyWatchedSeted: false,
+            loadedMetadata: false,
         }
     },
     computed: {
@@ -157,20 +158,22 @@ export default {
             })
             this.player.on('timeupdate', this.timeUpdated)
 
-            // loadedmetadata
+            this.player.on('loadedmetadata', () => {
+                this.loadedMetadata = true
+
+                this.setEpisodeTime()
+            })
             this.player.on('play', () => {
-                if (this.timeAlreadyWatchedSeted === false) {
-                    this.player.currentTime(this.episode.timeWatched)
-                    this.timeAlreadyWatchedSeted = true
-                }
+                this.setEpisodeTime()
+                this.timeAlreadyWatchedSeted = true
             })
-
-            this.player.on('progress', (teste) => {
-                console.log(teste)
-            })
-
             if (this.isContinueWatching) {
                 this.player.play()
+            }
+        },
+        setEpisodeTime() {
+            if (this.timeAlreadyWatchedSeted === false && this.loadedMetadata === true) {
+                this.player.currentTime(this.episode.timeWatched)
             }
         },
         async getEpisode() {
