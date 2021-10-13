@@ -105,7 +105,6 @@ export default {
             },
 
             timeUpdatedCheck: false,
-            timeAlreadyWatchedSeted: false,
             loadedMetadata: false,
         }
     },
@@ -163,16 +162,21 @@ export default {
 
                 this.setEpisodeTime()
             })
-            this.player.on('play', () => {
+            this.player.on('firstplay', () => {
                 this.setEpisodeTime()
-                this.timeAlreadyWatchedSeted = true
             })
+
+            // this.player.on('progress', (event) => {
+            //     console.log(event)
+            //     console.log(this.player.bufferedPercent())
+            // })
+
             if (this.isContinueWatching) {
                 this.player.play()
             }
         },
         setEpisodeTime() {
-            if (this.timeAlreadyWatchedSeted === false && this.loadedMetadata === true) {
+            if (this.loadedMetadata === true) {
                 this.player.currentTime(this.episode.timeWatched)
             }
         },
