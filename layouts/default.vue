@@ -16,6 +16,13 @@
                         path: '/catalog',
                     }"
                 />
+                <sidebar-item
+                    :link="{
+                        name: 'Dashboard',
+                        icon: 'ni ni-sound-wave text-primary',
+                        path: '/dashboard',
+                    }"
+                />
                 <!-- 
                 <sidebar-item
                     :link="{
