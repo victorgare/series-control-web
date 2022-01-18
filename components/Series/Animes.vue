@@ -42,7 +42,7 @@ export default {
         },
         watched() {
             return this.animes.filter((item) => {
-                return !item.nextEpisode || item.nextEpisode === ''
+                return (!item.nextEpisode || item.nextEpisode === '') && item.anime.newEpisodes === true
             })
         },
     },

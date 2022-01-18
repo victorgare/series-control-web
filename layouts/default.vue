@@ -23,6 +23,14 @@
                         path: '/dashboard',
                     }"
                 />
+
+                <sidebar-item
+                    :link="{
+                        name: 'Histórico',
+                        icon: 'ni ni-compass-04 text-default',
+                        path: '/animehistory',
+                    }"
+                />
                 <!-- 
                 <sidebar-item
                     :link="{
