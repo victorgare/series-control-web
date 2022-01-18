@@ -12,24 +12,16 @@
                 />
                 Anitube
             </a>
-
-            <a class="dropdown-item" @click.prevent="adicionarGoyabu">
-                <img src="https://goyabu.com/favicon.png" class="fav-icon-size" />
-                Goyabu
-            </a>
         </base-dropdown>
         <ModalAnitube ref="modalAnitube" class="dropdown-item" />
-        <ModalGoyabu ref="modalGoyabu" class="dropdown-item" />
     </div>
 </template>
 
 <script>
 import ModalAnitube from '~/components/Series/ModalAnitube'
-import ModalGoyabu from '~/components/Series/ModalGoyabu'
 export default {
     components: {
         ModalAnitube,
-        ModalGoyabu,
     },
     methods: {
         adicionarAnitube() {

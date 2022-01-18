@@ -166,18 +166,13 @@ export default {
                 this.setEpisodeTime()
             })
 
-            // this.player.on('progress', (event) => {
-            //     console.log(event)
-            //     console.log(this.player.bufferedPercent())
-            // })
-
             if (this.isContinueWatching) {
                 this.player.play()
             }
         },
         setEpisodeTime() {
             if (this.loadedMetadata === true) {
-                this.player.currentTime(this.episode.timeWatched)
+                this.player.currentTime(this.episode.timeWatched - 2)
             }
         },
         async getEpisode() {
@@ -221,15 +216,16 @@ export default {
             return { name: 'Anime-origemAnime-watch-id', params: { id: episode, origemAnime: this.origemAnime } }
         },
         goToEpisode(episode, continueWatching) {
-            const routeObject = this.makeRouteObject(episode)
+            if (episode !== '') {
+                const routeObject = this.makeRouteObject(episode)
 
-            if (continueWatching === true) {
-                routeObject.query = {
-                    continueWatching,
+                if (continueWatching === true) {
+                    routeObject.query = {
+                        continueWatching,
+                    }
                 }
+                this.$router.push(routeObject)
             }
-
-            this.$router.push(routeObject)
         },
     },
 }
