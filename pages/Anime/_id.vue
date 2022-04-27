@@ -101,7 +101,13 @@
                 </h5>
             </b-card-header>
             <b-collapse id="assistidos" visible accordion="assistidos" role="tabpanel">
-                <Episode v-for="episode of getEpisodesWatched" :key="episode.id" :item="episode" />
+                <Episode
+                    v-for="episode of getEpisodesWatched"
+                    :ref="episode.id"
+                    :key="episode.id"
+                    :item="episode"
+                    :origem-anime="anime.origemAnime"
+                />
             </b-collapse>
         </b-card>
     </div>
